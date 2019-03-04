@@ -17,3 +17,8 @@
 #pragma once
 
 // place overrides here
+#define QMK_ESC_OUTPUT D5
+#define QMK_ESC_INPUT B4
+
+#define QMK_LED D1
+
