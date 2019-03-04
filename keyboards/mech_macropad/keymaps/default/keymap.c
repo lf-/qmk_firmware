@@ -23,7 +23,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT( /* Base */
-        QMKBEST,	KC_NO,	KC_NO,	KC_NO,
+        QMKBEST,	KC_NO,	KC_NO,	RESET,
         KC_NO,	KC_NO,	KC_NO,	KC_NO,
 
         KC_NUMLOCK,	KC_KP_SLASH,	KC_KP_ASTERISK,	KC_KP_MINUS,
@@ -58,6 +58,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user(void) {
 
+}
+
+void keyboard_post_init_user(void) {
+    debug_enable = true;
+    debug_matrix = true;
 }
 
 void matrix_scan_user(void) {
