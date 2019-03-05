@@ -15,15 +15,15 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
-};
+enum my_layers { _NUMPAD, _MACROS };
 
+// Defines the keycodes used by our macros in process_record_user
+enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
+
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT( /* Base */
-        QMKBEST,	KC_NO,	KC_NO,	RESET,
+    [_NUMPAD] = LAYOUT(
+        TG(_MACROS),	QMKURL,	KC_NO,	KC_NO,
         KC_NO,	KC_NO,	KC_NO,	KC_NO,
 
         KC_NUMLOCK,	KC_KP_SLASH,	KC_KP_ASTERISK,	KC_KP_MINUS,
@@ -32,7 +32,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_KP_1,	KC_KP_2,	KC_KP_3,	KC_KP_ENTER,
         KC_KP_0,	KC_KP_0,	KC_KP_DOT,	KC_KP_ENTER
     ),
+    [_MACROS] = LAYOUT(
+        KC_TRNS,	QMKBEST,	RGB_VAI,	RESET,
+        KC_TRNS,	KC_TRNS,	RGB_VAD,	KC_TRNS,
+
+        KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
+        KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
+        KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
+        KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
+        KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS
+    ),
 };
+// clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -56,19 +67,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_init_user(void) {
+void matrix_init_user(void) {}
 
-}
+void rgb_seths(uint16_t hue, uint8_t sat) { rgblight_sethsv_noeeprom(hue, sat, rgblight_get_val()); }
 
 void keyboard_post_init_user(void) {
-    debug_enable = true;
-    debug_matrix = true;
+  rgblight_init();
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+  rgb_seths(0, 0);
+  debug_enable = true;
 }
 
-void matrix_scan_user(void) {
+void matrix_scan_user(void) {}
 
-}
+void led_set_user(uint8_t usb_led) {}
 
-void led_set_user(uint8_t usb_led) {
-
+uint32_t layer_state_set_user(uint32_t state) {
+  switch (biton32(state)) {
+    case _NUMPAD:
+      rgb_seths(53, 100);
+      break;
+    case _MACROS:
+      rgb_seths(6, 100);
+      break;
+    default:
+      rgb_seths(0, 0);
+      break;
+  }
+  return state;
 }
