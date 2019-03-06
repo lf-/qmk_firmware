@@ -20,6 +20,12 @@ enum my_layers { _NUMPAD, _MACROS };
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
 
+#define NOTIFY_CURR_TRACK LCTL(KC_F23)
+#define LIKE_CURR_TRACK LCTL(KC_F24)
+#define DISLIKE_CURR_TRACK LCTL(KC_F22)
+
+#define MIC_MUTE LCTL(KC_F17)
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUMPAD] = LAYOUT(
@@ -36,11 +42,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,	QMKBEST,	RGB_VAI,	RESET,
         KC_TRNS,	KC_TRNS,	RGB_VAD,	KC_TRNS,
 
-        KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
-        KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
-        KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
-        KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
-        KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS
+        MIC_MUTE,	KC_NO,	KC_NO,	KC_NO,
+        KC_NO,	KC_NO,	KC_NO,	KC_NO,
+        KC_NO,	KC_NO,	KC_NO,	NOTIFY_CURR_TRACK,
+        KC_VOLD,	KC_MUTE,	KC_VOLU,	LIKE_CURR_TRACK,
+        KC_MPRV,	KC_MPLY,	KC_MNXT,	DISLIKE_CURR_TRACK
     ),
 };
 // clang-format on
@@ -74,7 +80,7 @@ void rgb_seths(uint16_t hue, uint8_t sat) { rgblight_sethsv_noeeprom(hue, sat, r
 void keyboard_post_init_user(void) {
   rgblight_init();
   rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-  rgb_seths(0, 0);
+  layer_state_set_user(layer_state);
   debug_enable = true;
 }
 
@@ -85,10 +91,10 @@ void led_set_user(uint8_t usb_led) {}
 uint32_t layer_state_set_user(uint32_t state) {
   switch (biton32(state)) {
     case _NUMPAD:
-      rgb_seths(53, 100);
+      rgb_seths(53, 255);
       break;
     case _MACROS:
-      rgb_seths(6, 100);
+      rgb_seths(0, 255);
       break;
     default:
       rgb_seths(0, 0);
