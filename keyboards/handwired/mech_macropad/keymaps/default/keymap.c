@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-enum my_layers { _NUMPAD, _MACROS };
+enum my_layers { _NUMPAD, _MACROS, _SUDOKU };
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
@@ -25,12 +25,16 @@ enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
 #define DISLIKE_CURR_TRACK LCTL(KC_F22)
 
 #define MIC_MUTE LCTL(KC_F17)
+#define OBS1 LCTL(KC_F13)
+#define OBS2 LCTL(KC_F14)
+#define OBS3 LCTL(KC_F15)
+#define OBS4 LCTL(KC_F16)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUMPAD] = LAYOUT(
-        TG(_MACROS),	QMKURL,	KC_NO,	KC_NO,
-        KC_NO,	KC_NO,	KC_NO,	KC_NO,
+        TO(_MACROS),	KC_NO,		KC_NO,		KC_NO,
+        KC_NO,		KC_NO,		KC_NO,		KC_NO,
 
         KC_NUMLOCK,	KC_KP_SLASH,	KC_KP_ASTERISK,	KC_KP_MINUS,
         KC_KP_7,	KC_KP_8,	KC_KP_9,	KC_KP_PLUS,
@@ -39,14 +43,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_KP_0,	KC_KP_0,	KC_KP_DOT,	KC_KP_ENTER
     ),
     [_MACROS] = LAYOUT(
-        KC_TRNS,	QMKBEST,	RGB_VAI,	RESET,
-        KC_TRNS,	KC_TRNS,	RGB_VAD,	KC_TRNS,
+        TO(_SUDOKU),	KC_NO,		RGB_VAI,	RESET,
+        KC_NO,		KC_NO,		RGB_VAD,	KC_NO,
 
-        MIC_MUTE,	KC_NO,	KC_NO,	KC_NO,
-        KC_NO,	KC_NO,	KC_NO,	KC_NO,
-        KC_NO,	KC_NO,	KC_NO,	NOTIFY_CURR_TRACK,
+        MIC_MUTE,	KC_NO,		KC_NO,		KC_NO,
+        OBS1,		OBS2,		OBS3,		OBS4,
+        KC_NO,		KC_NO,		KC_NO,		NOTIFY_CURR_TRACK,
         KC_VOLD,	KC_MUTE,	KC_VOLU,	LIKE_CURR_TRACK,
         KC_MPRV,	KC_MPLY,	KC_MNXT,	DISLIKE_CURR_TRACK
+    ),
+    [_SUDOKU] = LAYOUT(
+        TO(_NUMPAD),	KC_NO,		RGB_VAI,	KC_NO,
+        KC_NO,		KC_NO,		RGB_VAD,	KC_NO,
+
+        KC_LEFT,	KC_DOWN,	KC_UP,		KC_RIGHT,
+        KC_7,		KC_8,		KC_9,		KC_SPACE,
+        KC_4,		KC_5,		KC_6,		KC_DEL,
+        KC_1,		KC_2,		KC_3,	 	KC_ESC,
+        OSM(MOD_LSFT),	OSM(MOD_LCTL),	LCTL(KC_Z),	LCTL(KC_Y)
     ),
 };
 // clang-format on
@@ -95,6 +109,9 @@ uint32_t layer_state_set_user(uint32_t state) {
       break;
     case _MACROS:
       rgb_seths(0, 255);
+      break;
+    case _SUDOKU:
+      rgb_seths(224, 63);
       break;
     default:
       rgb_seths(0, 0);
