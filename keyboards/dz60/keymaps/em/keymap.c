@@ -67,13 +67,13 @@ typedef struct {
 #define FLAG_BOTHROWS(i0, i1, i2, i3, i4, i5, i6, i7) {i0, i1, i2, i3, i4, i5, i6, i7, i7, i6, i5, i4, i3, i2, i1, i0}
 
 Colour colour_patterns[][NUM_COLOURS] = {
-    FLAG_BOTHROWS(OFF, CLR(197, 100), CLR(348, 100), CLR(0, 0), CLR(0, 0), CLR(348, 100), CLR(197, 100), OFF),      /* trans flag */
+    FLAG_BOTHROWS(CLR(197, 100), CLR(348, 100), CLR(348, 100), CLR(0, 0), CLR(0, 0), CLR(348, 100), CLR(348, 100), CLR(197, 100)),      /* trans flag */
 
     FLAG_BOTHROWS(CLR(57, 100), CLR(57, 100), CLR(0, 0), CLR(0, 0), CLR(273, 100), CLR(273, 100), CLR(244, 100), CLR(244, 100)),  /* nonbinary flag */
 
-    FLAG_BOTHROWS(OFF, CLR(267, 100), CLR(267, 100), CLR(0, 0), CLR(0, 0), CLR(85, 100), CLR(85, 100), OFF),        /* queer flag */
+    FLAG_BOTHROWS(CLR(267, 100), CLR(267, 100), CLR(267, 100), CLR(0, 0), CLR(0, 0), CLR(85, 100), CLR(85, 100), CLR(85, 100)),        /* queer flag */
 
-    FLAG_BOTHROWS(OFF, CLR(13, 100), CLR(24, 100), CLR(0, 0), CLR(0, 0), CLR(325, 100), CLR(324, 100), OFF),        /* lesbian flag */
+    FLAG_BOTHROWS(CLR(13, 100), CLR(24, 86), CLR(24, 86), CLR(0, 0), CLR(0, 0), CLR(325, 74), CLR(325, 74), CLR(324, 100)),        /* lesbian flag */
 };
 
 void set_colour_pattern(Colour pattern[NUM_COLOURS]) {
