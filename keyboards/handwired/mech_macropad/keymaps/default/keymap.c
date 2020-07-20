@@ -144,8 +144,11 @@ void increase_val(void) {
     user_config.val = new_val;
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
     user_config.raw = eeconfig_read_user();
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    refresh_colour_pattern();
 }
 
 void matrix_scan_user(void) {
