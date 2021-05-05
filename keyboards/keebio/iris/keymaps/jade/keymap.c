@@ -10,6 +10,11 @@
 #define _SYM 1
 #define _FN 2
 
+#define OBS1 LCTL(KC_F13)
+#define OBS2 LCTL(KC_F14)
+#define OBS3 LCTL(KC_F15)
+#define OBS4 LCTL(KC_F16)
+
 enum custom_keycodes {
     CYCLE_RGB = SAFE_RANGE,
     LIG_INC,
@@ -52,11 +57,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX, XXXXXXX, XXXXXXX, KC_END,  XXXXXXX, RESET,                              RESET,   XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, KC_F12,
+     XXXXXXX, XXXXXXX, XXXXXXX, KC_END,  XXXXXXX, RESET,                              OBS1,    OBS2,    OBS3,    OBS4,    KC_PSCR, KC_F12,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX, KC_HOME, XXXXXXX, XXXXXXX, KC_PGDN, XXXXXXX,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, LIG_DEC, CYCLE_RGB,LIG_INC,XXXXXXX, KC_PGUP, _______,          XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+     _______, LIG_DEC, CYCLE_RGB,LIG_INC,XXXXXXX, KC_PGUP, _______,          XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, RESET,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     KC_DEL,  XXXXXXX, _______,                   _______, XXXXXXX, _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
